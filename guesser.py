@@ -1,4 +1,3 @@
-#all imports needed to send requests to gmail and get the response
 import requests
 import urllib.request
 import urllib.parse
